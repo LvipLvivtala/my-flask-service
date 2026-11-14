@@ -1,2 +1,16 @@
+import sys
+import os
+
+# Добавляем корневую директорию в путь поиска модулей, чтобы импортировать app.py
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from app import app
+
 def test_addition():
     assert 2 + 2 == 4
+
+def test_home_page():
+    client = app.test_client()
+    response = client.get('/')
+    assert response.status_code == 200
+    assert b"Cloud Technologies Laboratory" in response.data
